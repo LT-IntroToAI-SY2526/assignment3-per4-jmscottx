@@ -16,7 +16,7 @@ This assignment completes our movie chatbot system by implementing action functi
 
 1. What are some key programming concepts or techniques that you learned while completing this assignment?
 
-
+Some key programming concepts or techiques that I learned while completing this assignment were the functionality of lists, searching, and 
 
 2. How does the overall movie chatbot system work? Explain the flow from when a user types a query to when they receive an answer.
 
