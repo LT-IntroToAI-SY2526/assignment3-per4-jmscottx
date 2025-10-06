@@ -16,10 +16,12 @@ This assignment completes our movie chatbot system by implementing action functi
 
 1. What are some key programming concepts or techniques that you learned while completing this assignment?
 
-Some key programming concepts or techiques that I learned while completing this assignment were the functionality of lists, searching, and 
+Some key programming concepts or techiques that I learned while completing this assignment were the functionality of lists, searching, and organization using action functions.
 
 2. How does the overall movie chatbot system work? Explain the flow from when a user types a query to when they receive an answer.
 
-
+The chatbot system works in the way that the user asks the chatbot what movies were made in a certain time period, and what actors are in what movie. The chatbot essentially has information about several movies and the user can search for movies using the chatbot.
 
 3. What are some real-world applications where this type of pattern-matching chatbot system could be useful? How might you extend or improve this system for practical use?
+
+A real-world application of ths pattern-matching chatbot could be similarly to Netflix, when you search for movies based on genres or actors.
