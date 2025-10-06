@@ -128,7 +128,7 @@ def director_by_title(matches: List[str]) -> List[str]:
     Returns:
         a list of 1 string, the director of the movie
     """
-    title = int(matches[0])
+    title = matches[0]
     result = []
     for movie in movie_db:
         if get_title(movie) == title:
@@ -166,8 +166,7 @@ def actors_by_title(matches: List[str]) -> List[str]:
     result = []
     for movie in movie_db:
         if get_title(movie) == title:
-            result.append(get_actors(movie))
-    print(result)
+           result = get_actors(movie)
     return result
 
 
@@ -201,7 +200,23 @@ def title_by_actor(matches: List[str]) -> List[str]:
     result = []
     for movie in movie_db:
         if actor in get_actors(movie) :
-            result.append(get_director(movie))
+            result.append(get_title(movie))
+    return result
+
+def titles_by_year(matches: List[str]) -> List[str]:
+    """Finds titles of all movies made in the given year
+
+    Args:
+        matches - a list of 1 string, the year as a string
+
+    Returns:
+        a list of movie titles made in that year
+    """
+    year = int(matches[0])
+    result = []
+    for movie in movie_db:
+        if get_year(movie) == year:
+            result.append(get_title(movie))
     return result
 
 
@@ -241,7 +256,17 @@ def search_pa_list(src: List[str]) -> List[str]:
         a list of answers. Will be ["I don't understand"] if it finds no matches and
         ["No answers"] if it finds a match but no answers
     """
+    for pat, act in pa_list:
+        print(f"pattern: {pat}, source: {src}, action: {act}")
+        mat = match(pat, src)
+        print(f"match: {mat}")
 
+        if mat is not None:
+            ans = act(mat)
+            print(f"answer: {ans}")
+        return ans if ans else ["No answers"]
+
+    return ["I don't understand"]
 
 def query_loop() -> None:
     """The simple query loop. The try/except structure is to catch Ctrl-C or Ctrl-D
@@ -267,7 +292,6 @@ def query_loop() -> None:
 # the existing asserts.
 # query_loop()
 
-if __name__ == "__main__":
     assert isinstance(title_by_year(["1974"]), list), "title_by_year not returning a list"
     assert sorted(title_by_year(["1974"])) == sorted(
         ["amarcord", "chinatown"]
@@ -282,7 +306,7 @@ if __name__ == "__main__":
     ), "failed title_before_year test"
     assert isinstance(title_after_year(["1990"]), list), "title_after_year not returning a list"
     assert sorted(title_after_year(["1990"])) == sorted(
-        ["boyz n the hood", "dead again", "the crying game", "flirting", "malcolm x"]
+        ["boyz n the hood", "dead again", "the crying game", "flirting", "malcolm x", "lord of the rings"]
     ), "failed title_after_year test"
     assert isinstance(director_by_title(["jaws"]), list), "director_by_title not returning a list"
     assert sorted(director_by_title(["jaws"])) == sorted(
@@ -322,5 +346,9 @@ if __name__ == "__main__":
     assert sorted(
         search_pa_list(["what", "movies", "were", "made", "in", "2020"])
     ) == sorted(["No answers"]), "failed search_pa_list test 3"
+
+    assert sorted(search_pa_list(["hi", "there"])) == sorted(["I don't understand"]), "failed search_pa_list test 1"
+    assert sorted(search_pa_list(["who", "directed", "jaws"])) == sorted(["steven spielberg"]), "failed search_pa_list test 2"
+    assert sorted(search_pa_list(["what", "movies", "were", "made", "in", "2020"])) == sorted(["No answers"]), "failed search_pa_list test 3"
 
     print("All tests passed!")
